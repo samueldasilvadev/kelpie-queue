@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  bull-queue-node:
+    build:
+      context: ./
+      dockerfile: ./docker/dev/Dockerfile
+    container_name: bull-queue-node
+    depends_on:
+      - bull-queue-redis
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/usr/src/
+
+  bull-queue-redis:
+    container_name:  bull-queue-redis
+    image: redis:latest
+    sysctls:
+      net.core.somaxconn: 1024
+    ports:
+      - 6379:6379
