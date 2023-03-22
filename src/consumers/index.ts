@@ -1,11 +1,9 @@
+import type BaseConsumer from "../core/base-consumer";
 import TestConsumer from "./test-consumer";
 
 export const getConsumer = (queueName: string) => {
-  switch (queueName) {
-    case 'test':
-      return new TestConsumer(queueName)
-
-    default:
-      return;
+  const consumers: Record<string, BaseConsumer | undefined> = {
+    test: new TestConsumer(queueName)
   }
+  return consumers[queueName];
 }

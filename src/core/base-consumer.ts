@@ -1,5 +1,5 @@
 import Bull from 'bull';
-import { baseQueueOptions } from '../../constants';
+import { baseQueueOptions } from '../constants';
 
 export default abstract class BaseConsumer {
 
@@ -16,21 +16,21 @@ export default abstract class BaseConsumer {
     );
   }
 
-  protected onError(error: Error) {
+  #onError(error: Error) {
     console.log('[bull:error]:' + error);
   }
 
-  protected onFailed(job: Bull.Job, error: Error) {
+  #onFailed(job: Bull.Job, error: Error) {
     console.log('[bull:failed]: ' + error);
   }
 
   protected listeners(): void {
     console.log('Set base listeners...');
-    this.queue.on('error', this.onError);
-    this.queue.on('failed', this.onFailed);
+    this.queue.on('error', this.#onError);
+    this.queue.on('failed', this.#onFailed);
   }
 
-  public async process(job: Bull.Job): Promise<void> { }
+  public async process(job: Bull.Job): Promise<void> {}
 
   public async start(): Promise<void> {
     this.listeners();

@@ -1,9 +1,6 @@
 import { Job } from "bull";
-import BaseConsumer from "../base-consumer";
-
-interface TestJobData {
-  message: string;
-}
+import { TestJobData } from "../../types/TestJobData";
+import BaseConsumer from "../../core/base-consumer";
 
 export default class TestConsumer extends BaseConsumer {
   public async process(job: Job<TestJobData>): Promise<void> {
