@@ -32,7 +32,7 @@ export default abstract class BaseConsumer {
 
   public async process(job: Bull.Job): Promise<void> { }
 
-  async start(): Promise<void> {
+  public async start(): Promise<void> {
     this.listeners();
     this.queue.process(this.process);
   }
