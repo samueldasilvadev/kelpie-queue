@@ -12,7 +12,8 @@
   "author": "Samuel da Silva",
   "license": "ISC",
   "dependencies": {
-    "bull": "^4.10.4"
+    "bull": "^4.10.4",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "@types/bull": "^4.10.0",
