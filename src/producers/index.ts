@@ -4,7 +4,7 @@
  */
 import Bull from 'bull';
 import { argv } from 'process';
-import { TestJobData } from '../types/TestJobData';
+import { ITestJobData } from '../types/ITestJobData';
 import testSampleData  from './sample-data/test.json';
 
 const params = {
@@ -12,10 +12,10 @@ const params = {
   jobs: Number.parseInt(argv[3]) > 0 ? Number.parseInt(argv[3]) : 1,
 };
 
-const producer = new Bull('simple-queue');
+const producer = new Bull(params.queueName);
 
 const getSampleData = (queueName: string) => {
-  const sampleData: Record<string, TestJobData> = {
+  const sampleData: Record<string, ITestJobData> = {
     test: testSampleData
   }
   return sampleData[queueName];
@@ -32,4 +32,3 @@ producer.add(data).then(job => {
   console.log(job);
   process.exit(0);
 });
-

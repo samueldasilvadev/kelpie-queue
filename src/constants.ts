@@ -15,8 +15,3 @@ export const baseQueueOptions: QueueOptions = {
     // enableReadyCheck: Boolean(process.env.REDIS_READY_CHECK) || false,
   },
 }
-
-export const testQueueOptions: QueueOptions = {
-  ...baseQueueOptions,
-
-}
