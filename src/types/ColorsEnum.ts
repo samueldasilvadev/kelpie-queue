@@ -1,4 +1,4 @@
-export enum Colors {
+enum Colors {
   'reset' = '\x1b[0m%s\x1b[0m',
   'bright' = '\x1b[1m%s\x1b[0m',
   'dim' = '\x1b[2m%s\x1b[0m',
@@ -23,3 +23,5 @@ export enum Colors {
   'bgcyan' = '\x1b[46m%s\x1b[0m',
   'bgwhite' = '\x1b[47m%s\x1b[0m',
 };
+
+export default Colors;

@@ -1,11 +1,11 @@
 import { Job } from "bull";
 import { ITestJobData } from "../../types/ITestJobData";
 import BaseConsumer from "../../core/base-consumer";
-import { logger } from "../../start";
+import Logger from "../../utils/logger";
 
 export default class TestConsumer extends BaseConsumer {
   public async process(job: Job<ITestJobData>): Promise<void> {
-    logger.info('Test Queue Process');
-    logger.debug(job.data);
+    Logger.info('Test Queue Process');
+    Logger.info(job.data);
   }
 }

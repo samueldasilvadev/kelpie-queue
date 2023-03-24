@@ -1,17 +1,15 @@
-import { Colors } from '../types/ColorsEnum';
+import Colors from '../types/ColorsEnum';
+import ILogger from '../types/ILogger';
 import DateTime from './date-time';
 
-export default class Logger {
-
+class Logger implements ILogger {
   private dateTime: DateTime;
-  private debugMode: boolean;
 
-  constructor(dateTime: DateTime, debug?: boolean) {
+  constructor(dateTime: DateTime) {
     this.dateTime = dateTime;
-    this.debugMode = debug ? debug : false;
   }
 
-  show(color: Colors, log: string | unknown) {
+  log(color: Colors, log: string | unknown) {
     let out = log;
     if (typeof log === 'object') {
       out = JSON.stringify(log);
@@ -19,21 +17,17 @@ export default class Logger {
     console.log(color, `${this.dateTime.getDate()} - ${out}`);
   }
 
-  info(log: string): void {
-    this.show(Colors.blue, log);
+  info(log: string | unknown): void {
+    this.log(Colors.blue, log);
   }
 
-  warn(log: string): void {
-    this.show(Colors.yellow, log);
+  warn(log: string | unknown): void {
+    this.log(Colors.yellow, log);
   }
 
   error(log: string | unknown): void {
-    this.show(Colors.red, log);
-  }
-
-  debug(log: string | unknown) {
-    if (this.debugMode) {
-      this.show(Colors.magenta, log);
-    }
+    this.log(Colors.red, log);
   }
 }
+
+export default new Logger(new DateTime());

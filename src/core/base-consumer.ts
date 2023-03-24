@@ -1,6 +1,6 @@
 import Bull from 'bull';
 import { baseQueueOptions } from '../constants';
-import { logger } from '../start';
+import Logger from '../utils/logger';
 
 export default abstract class BaseConsumer {
 
@@ -10,13 +10,10 @@ export default abstract class BaseConsumer {
 
   constructor(
     queueName: string,
-    options: {
-      opts?: Bull.QueueOptions,
-      debugMode: boolean
-    }
+    opts?: Bull.QueueOptions,
   ) {
     this.queueName = queueName;
-    this.options = options.opts ? options.opts : baseQueueOptions;
+    this.options = opts ? opts : baseQueueOptions;
 
     this.queue = new Bull(
       this.queueName,
@@ -25,11 +22,11 @@ export default abstract class BaseConsumer {
   }
 
   #onError(error: Error) {
-    logger.error('[bull:error]:' + error);
+    Logger.error('[bull:error]:' + error);
   }
 
   #onFailed(job: Bull.Job, error: Error) {
-    logger.error('[bull:failed]: ' + error);
+    Logger.error('[bull:failed]: ' + error);
   }
 
   protected listeners(): void {
@@ -40,7 +37,7 @@ export default abstract class BaseConsumer {
   public async process(job: Bull.Job): Promise<void> {}
 
   public async start(): Promise<void> {
-    logger.debug('Running in debug mode (•_•) ( •_•)>⌐■-■ (⌐■_■)>c[_]');
+    Logger.info('Worker ir running: (•_•) ( •_•)>⌐■-■ (⌐■_■)>c[_]');
     this.listeners();
     this.queue.process(this.process);
   }
