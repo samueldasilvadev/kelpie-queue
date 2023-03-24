@@ -1,5 +1,5 @@
 import { Job } from "bull";
-import { ITestJobData } from "../../types/ITestJobData";
+import ITestJobData from "../../types/ITestJobData";
 import BaseConsumer from "../../core/base-consumer";
 import Logger from "../../utils/logger";
 

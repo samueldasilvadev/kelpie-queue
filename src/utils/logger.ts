@@ -11,21 +11,25 @@ class Logger implements ILogger {
 
   log(color: Colors, log: string | unknown) {
     let out = log;
-    if (typeof log === 'object') {
+    if (typeof log === 'object' && !(log !instanceof Error)) {
       out = JSON.stringify(log);
     }
     console.log(color, `${this.dateTime.getDate()} - ${out}`);
   }
 
-  info(log: string | unknown): void {
+  info(log: string | object): void {
     this.log(Colors.blue, log);
   }
 
-  warn(log: string | unknown): void {
+  warn(log: string | object): void {
     this.log(Colors.yellow, log);
   }
 
-  error(log: string | unknown): void {
+  error(log: string | object | unknown): void {
+    if (log instanceof Error) {
+      this.log(Colors.red, log.stack);
+      return;
+    }
     this.log(Colors.red, log);
   }
 }

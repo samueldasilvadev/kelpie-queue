@@ -3,15 +3,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const redisConfig = {
+export const REDIS_CONFIG = {
   host: process.env.REDIS_HOST || 'localhost',
   port: Number(process.env.REDIS_PORT) || 6379,
 }
 
-export const baseQueueOptions: QueueOptions = {
+export const BASE_QUEUE_OPTIONS: QueueOptions = {
   redis: {
-    ...redisConfig,
-    // maxRetriesPerRequest: Number(process.env.REDIS_MAX_RETRIES) || null,
-    // enableReadyCheck: Boolean(process.env.REDIS_READY_CHECK) || false,
+    ...REDIS_CONFIG,
+    maxRetriesPerRequest: Number(process.env.REDIS_MAX_RETRIES) || null,
   },
 }

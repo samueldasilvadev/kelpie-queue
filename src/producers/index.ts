@@ -1,34 +1,29 @@
-/**
- * Base producers config
- * params <queueName> <jobQtd>
- */
 import Bull from 'bull';
-import { argv } from 'process';
-import { ITestJobData } from '../types/ITestJobData';
+import { argv, exit } from 'process';
+import { BASE_QUEUE_OPTIONS } from '../constants';
+import Logger from '../utils/logger';
 import testSampleData  from './sample-data/test.json';
 
 const params = {
   queueName: argv[2],
-  jobs: Number.parseInt(argv[3]) > 0 ? Number.parseInt(argv[3]) : 1,
+  jobs: (Number.parseInt(argv[3])) > 0 ? Number.parseInt(argv[3]) : 1,
 };
 
-const producer = new Bull(params.queueName);
-
-const getSampleData = (queueName: string) => {
-  const sampleData: Record<string, ITestJobData> = {
-    test: testSampleData
-  }
-  return sampleData[queueName];
+const sampleData: Record<string, unknown> = {
+  'test': testSampleData
 }
 
-const data = getSampleData(params.queueName);
-
+const data = sampleData[params.queueName];
 if (typeof data === 'undefined') {
-  console.error('Sample data not found');
-  process.exit(1);
+  Logger.error(`Sample data not found for '${params.queueName}' queue`);
+  exit(1);
 }
 
-producer.add(data).then(job => {
-  console.log(job);
-  process.exit(0);
-});
+const producer = new Bull(params.queueName, BASE_QUEUE_OPTIONS);
+for (let i = 0; i < params.jobs; i++) {
+  producer.add(data).finally(() => {
+    Logger.info(`${params.jobs} jobs added in queue ${params.queueName}`);
+    Logger.info({ jobData: data });
+    exit(0);
+  });
+}

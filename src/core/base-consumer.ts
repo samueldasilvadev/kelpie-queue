@@ -1,6 +1,7 @@
 import Bull from 'bull';
-import { baseQueueOptions } from '../constants';
+import { BASE_QUEUE_OPTIONS } from '../constants';
 import Logger from '../utils/logger';
+import version from '../version';
 
 export default abstract class BaseConsumer {
 
@@ -13,7 +14,7 @@ export default abstract class BaseConsumer {
     opts?: Bull.QueueOptions,
   ) {
     this.queueName = queueName;
-    this.options = opts ? opts : baseQueueOptions;
+    this.options = opts ? opts : BASE_QUEUE_OPTIONS;
 
     this.queue = new Bull(
       this.queueName,
@@ -37,7 +38,8 @@ export default abstract class BaseConsumer {
   public async process(job: Bull.Job): Promise<void> {}
 
   public async start(): Promise<void> {
-    Logger.info('Worker ir running: (•_•) ( •_•)>⌐■-■ (⌐■_■)>c[_]');
+    Logger.info(`Version: ${version}`);
+    Logger.info('Queue consumer is running...');
     this.listeners();
     this.queue.process(this.process);
   }

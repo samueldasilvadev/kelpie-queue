@@ -1,3 +1,5 @@
-export interface ITestJobData {
-  message: string;
+interface ITestJobData {
+  sample: string;
 }
+
+export default ITestJobData;
