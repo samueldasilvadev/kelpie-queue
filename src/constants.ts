@@ -1,4 +1,4 @@
-import type { QueueOptions } from 'bull';
+import type { JobOptions, QueueOptions } from 'bull';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -12,5 +12,12 @@ export const BASE_QUEUE_OPTIONS: QueueOptions = {
   redis: {
     ...REDIS_CONFIG,
     maxRetriesPerRequest: Number(process.env.REDIS_MAX_RETRIES) || null,
+    enableReadyCheck: (Number(process.env.REDIS_READY_CHECK) == 1) || false,
   },
+}
+
+export const FALLBACK_QUEUE = process.env.FALLBACK_QUEUE || 'test';
+export const FALLBACK_JOB_CONFIG = {
+  attempts: Number(process.env.FALLBACK_ATTEMPTS) || 5,
+  backoff: Number(process.env.JOB_BACKOFF) || 30000,
 }

@@ -9,5 +9,6 @@ export default class TestConsumer extends BaseConsumer {
     Logger.info(`Worker PID: ${pid}`);
     Logger.info('Test Queue Process');
     Logger.info(job.data);
+    throw Error('Process Error');
   }
 }

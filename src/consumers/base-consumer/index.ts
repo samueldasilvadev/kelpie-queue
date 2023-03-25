@@ -1,20 +1,26 @@
-import Bull from 'bull';
-import { BASE_QUEUE_OPTIONS } from '../../constants';
+import Bull, { JobOptions } from 'bull';
+import Colors from '../../types/ColorsEnum';
 import Logger from '../../utils/logger';
 import version from '../../version';
+
+import {
+  BASE_QUEUE_OPTIONS
+} from '../../constants';
 
 export default abstract class BaseConsumer {
 
   protected queueName: string;
   protected queue: Bull.Queue;
   protected options: Bull.QueueOptions;
+  protected attempts: number;
 
   constructor(
     queueName: string,
     opts?: Bull.QueueOptions,
   ) {
     this.queueName = queueName;
-    this.options = opts ? opts : BASE_QUEUE_OPTIONS;
+    this.options = opts || BASE_QUEUE_OPTIONS;
+    this.attempts = 3;
 
     this.queue = new Bull(
       this.queueName,
@@ -23,11 +29,17 @@ export default abstract class BaseConsumer {
   }
 
   #onError(error: Error) {
-    Logger.error('[bull:error]:' + error);
+    Logger.error('[bull:error]: ' + error.stack);
   }
 
   #onFailed(job: Bull.Job, error: Error) {
     Logger.error('[bull:failed]: ' + error);
+    if (job.attemptsMade + 1 <= 3) {
+      console.log(job.attemptsMade + 1);
+      job.retry();
+      return;
+    }
+    throw Error('Retry failed');
   }
 
   protected listeners(): void {
