@@ -1,7 +1,7 @@
 import Bull from 'bull';
-import { BASE_QUEUE_OPTIONS } from '../constants';
-import Logger from '../utils/logger';
-import version from '../version';
+import { BASE_QUEUE_OPTIONS } from '../../constants';
+import Logger from '../../utils/logger';
+import version from '../../version';
 
 export default abstract class BaseConsumer {
 

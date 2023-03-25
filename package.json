@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc && node ./.dist/queue.js",
-    "producer": "node ./.dist/producers/index.js"
+    "producer": "node ./.dist/src/producers/index.js"
   },
   "author": "Samuel da Silva",
   "license": "ISC",

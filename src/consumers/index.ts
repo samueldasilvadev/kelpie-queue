@@ -1,4 +1,4 @@
-import type BaseConsumer from "../core/base-consumer";
+import type BaseConsumer from "./base-consumer";
 import TestConsumer from "./test-consumer";
 
 export const getConsumer = (queueName: string) => {
