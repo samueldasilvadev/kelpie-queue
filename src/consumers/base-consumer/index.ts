@@ -1,5 +1,4 @@
 import Bull, { JobOptions } from 'bull';
-import Colors from '../../types/ColorsEnum';
 import Logger from '../../utils/logger';
 import version from '../../version';
 

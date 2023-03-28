@@ -11,7 +11,7 @@ const params = {
 
 if (cluster.isPrimary && params.clusterNodes > 0) {
   Logger.log(Colors.magenta , `Starting in Cluster Mode...`);
-  for (let i = 0; i < params.clusterNodes; i++) {
+  for (let i = 0; i < params.clusterNodes - 1; i++) {
     cluster.fork();
   }
 }
