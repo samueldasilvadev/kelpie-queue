@@ -7,7 +7,10 @@ class BaseConsumerImpl extends BaseConsumer {
 }
 
 describe('Test base-consumer', () => {
-  const queueName = 'test';
-  const c = new BaseConsumerImpl(queueName);
-  expect(c.getQueueName()).toBe(queueName);
+  test('instance of', () => {
+    jest.mock('bull', () => jest.fn());
+    const queueName = 'test';
+    const c = new BaseConsumerImpl(queueName);
+    expect(c.getQueueName()).toBe(queueName);
+  });
 });

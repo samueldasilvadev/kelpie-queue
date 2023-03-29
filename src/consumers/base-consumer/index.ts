@@ -1,4 +1,4 @@
-import Bull, { JobOptions } from 'bull';
+import Bull from 'bull';
 import Logger from '../../utils/logger';
 import version from '../../version';
 
