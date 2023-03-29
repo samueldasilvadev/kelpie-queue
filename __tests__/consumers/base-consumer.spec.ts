@@ -1,4 +1,4 @@
-import BaseConsumer from "../src/consumers/base-consumer";
+import BaseConsumer from "../../src/consumers/base-consumer";
 
 class BaseConsumerImpl extends BaseConsumer {
   getQueueName() {
