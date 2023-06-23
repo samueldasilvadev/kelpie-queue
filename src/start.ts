@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { argv, exit, pid } from 'process';
 import cluster from 'cluster';
 import { getConsumer } from './consumers';

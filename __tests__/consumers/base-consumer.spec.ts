@@ -5,6 +5,12 @@ class BaseConsumerImpl extends BaseConsumer {
     return this.queueName;
   }
 }
+// const mockBull = jest.fn(() => {});
+// jest.mock('bull', () => {
+//   Bull: () => mockBull
+// });
+// expect(mockBull).toBeCalledTimes(1);
+// expect(mockBull).toBeCalled()
 
 describe('Test base-consumer', () => {
   test('instance of', () => {

@@ -1,7 +1,4 @@
-import type { JobOptions, QueueOptions } from 'bull';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import type { QueueOptions } from 'bull';
 
 export const REDIS_CONFIG = {
   host: process.env.REDIS_HOST || 'localhost',

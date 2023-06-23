@@ -27,11 +27,11 @@ export default abstract class BaseConsumer {
     );
   }
 
-  #onError(error: Error) {
+  protected onError(error: Error) {
     Logger.error('[bull:error]: ' + error.stack);
   }
 
-  #onFailed(job: Bull.Job, error: Error) {
+  protected onFailed(job: Bull.Job, error: Error) {
     Logger.error('[bull:failed]: ' + error);
     if (job.attemptsMade + 1 <= 3) {
       console.log(job.attemptsMade + 1);
@@ -42,8 +42,8 @@ export default abstract class BaseConsumer {
   }
 
   protected listeners(): void {
-    this.queue.on('error', this.#onError);
-    this.queue.on('failed', this.#onFailed);
+    this.queue.on('error', this.onError);
+    this.queue.on('failed', this.onFailed);
   }
 
   public async process(job: Bull.Job): Promise<void> {}
