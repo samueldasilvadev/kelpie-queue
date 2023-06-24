@@ -3,7 +3,7 @@ import { argv, exit, pid } from 'process';
 import cluster from 'cluster';
 import { getConsumer } from './consumers';
 import Logger from './utils/logger';
-import Colors from './types/ColorsEnum';
+import Colors from './types/enums/EColors';
 
 const params = {
   queueName: argv[2],

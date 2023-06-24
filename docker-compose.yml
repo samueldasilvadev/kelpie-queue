@@ -12,6 +12,7 @@ services:
       - 3000:3000
     volumes:
       - ./:/usr/src/
+    command: npm run dev sample
 
   bull-queue-redis:
     container_name:  bull-queue-redis

@@ -1,9 +1,9 @@
 import type BaseConsumer from "./base-consumer";
-import TestConsumer from "./test-consumer";
+import SampleConsumer from "./sample-consumer";
 
 export const getConsumer = (queueName: string): BaseConsumer | undefined => {
   const consumers: Record<string, BaseConsumer | undefined> = {
-    'test': new TestConsumer(queueName),
+    'sample': new SampleConsumer(queueName),
   }
   return consumers[queueName];
 }

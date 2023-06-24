@@ -1,4 +1,4 @@
-import Colors from "./ColorsEnum";
+import Colors from "../enums/EColors";
 
 export default interface ILogger {
   log(color: Colors, log: string | object): void;

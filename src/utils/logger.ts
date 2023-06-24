@@ -1,5 +1,5 @@
-import Colors from '../types/ColorsEnum';
-import ILogger from '../types/ILogger';
+import Colors from '../types/enums/EColors';
+import ILogger from '../types/interfaces/ILogger';
 import DateTime from './date-time';
 
 class Logger implements ILogger {

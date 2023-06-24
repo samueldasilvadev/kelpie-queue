@@ -4,12 +4,13 @@
   "description": "Simple Bull Queue",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/start.js",
     "dev": "nodemon",
+    "build": "rm -rf dist && npx tsc",
     "test": "jest",
-    "test:openHandles": "jest --detectOpenHandles",
     "test:coverage": "jest --coverage",
-    "build": "npx tsc && node ./.dist/queue.js",
-    "producer": "node ./.dist/src/producers/index.js"
+    "test:openHandles": "jest --detectOpenHandles",
+    "producer": "npx ts-node src/producer/index.ts"
   },
   "author": "Samuel da Silva",
   "license": "ISC",
