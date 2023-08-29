@@ -2,7 +2,7 @@ import Bull from 'bull';
 import { argv, exit } from 'process';
 import redisConfig from '../config/redis';
 import Logger from '../utils/logger';
-import Colors from '../types/enums/EColors';
+import Colors from '../types/enums/colors';
 
 const params = {
   queueName: argv[2],

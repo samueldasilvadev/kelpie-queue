@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import { argv, exit, pid } from 'process';
 import cluster from 'cluster';
-import { getConsumer } from './consumers';
+import { consumers } from './consumers';
 import Logger from './utils/logger';
-import Colors from './types/enums/EColors';
+import Colors from './types/enums/colors';
 
 const params = {
   queueName: argv[2],
@@ -20,12 +20,12 @@ if (cluster.isPrimary && params.clusterNodes > 0) {
 Logger.log(Colors.magenta, `Start Node: ${pid}`);
 const start = async () => {
   try {
-    const consumer = getConsumer(params.queueName);
+    const consumer = consumers[params.queueName];
     if (typeof consumer === 'undefined') {
       Logger.error('Consumer not found');
       exit(1);
     }
-    consumer.start();
+    consumer(params.queueName).start();
   } catch (e) {
     Logger.error(e);
     exit(1);

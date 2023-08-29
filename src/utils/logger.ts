@@ -1,12 +1,15 @@
-import Colors from '../types/enums/EColors';
-import ILogger from '../types/interfaces/ILogger';
+import { pid } from 'process';
+import Colors from '../types/enums/colors';
+import ILogger from '../types/interfaces/logger';
 import DateTime from './date-time';
 
 class Logger implements ILogger {
   private dateTime: DateTime;
+  private pid: Number;
 
-  constructor(dateTime: DateTime) {
+  constructor(dateTime: DateTime, pid: Number) {
     this.dateTime = dateTime;
+    this.pid = pid;
   }
 
   log(color: Colors, log: string | unknown) {
@@ -14,7 +17,7 @@ class Logger implements ILogger {
     if (typeof log === 'object' && !(log !instanceof Error)) {
       out = JSON.stringify(log);
     }
-    console.log(color, `${this.dateTime.getDate()} - ${out}`);
+    console.log(color, `${this.dateTime.getDate()} - PID: ${this.pid} - ${out}`);
   }
 
   info(log: string | object): void {
@@ -34,4 +37,4 @@ class Logger implements ILogger {
   }
 }
 
-export default new Logger(new DateTime());
+export default new Logger(new DateTime(), pid);
