@@ -4,7 +4,7 @@ WORKDIR /usr/src
 
 COPY . /usr/src
 
-RUN npm i -g nodemon ts-node
+RUN npm i -g nodemon ts-node typescript
 
 RUN chown -R 1000:1000 "/.npm"
 
