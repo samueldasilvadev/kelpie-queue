@@ -3,3 +3,4 @@ node_modules
 dist/*
 requirements.md
 coverage/*
+dist

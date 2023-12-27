@@ -1,7 +1,7 @@
 import { pid } from 'process';
-import Colors from '../types/enums/colors';
-import ILogger from '../types/interfaces/logger';
+import Colors from '../../types/EColors';
 import DateTime from './date-time';
+import { ILogger } from '../../types/ILogger';
 
 class Logger implements ILogger {
   private dateTime: DateTime;
