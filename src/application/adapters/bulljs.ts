@@ -1,9 +1,10 @@
-import Bull from 'bull';
-import Logger from './utils/logger';
-import version from './version';
-import redisConfig from './config/redis';
+import Bull, { Job } from 'bull';
+import Logger from '../utils/logger';
+import version from '../../version';
+import redisConfig from '../config/redis';
+import { IProcessQueue } from '../../types/IProcessQueue';
 
-export default abstract class BullJSAdapter implements ProcessQueue<Bull.ProcessCallbackFunction<any>> {
+export default abstract class BullJSAdapter implements IProcessQueue {
   protected queueName: string;
   protected queue: Bull.Queue;
   protected options: Bull.QueueOptions;
@@ -38,10 +39,12 @@ export default abstract class BullJSAdapter implements ProcessQueue<Bull.Process
     this.queue.on('failed', this.onFailed);
   }
 
-  async startup(callback: Bull.ProcessCallbackFunction<any>): Promise<void> {
+  async startup(): Promise<void> {
     Logger.info(`Version: ${version}`);
     Logger.info('Queue consumer is running...');
     this.listeners();
-    this.queue.process(callback);
+    this.queue.process(this.process);
   }
+
+  async process(_: Job): Promise<void> {}
 }
